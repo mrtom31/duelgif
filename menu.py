@@ -70,7 +70,7 @@ class TkFileDialogExample(Tkinter.Frame):
         self.path, self.filename = os.path.split(file_path)
         self.label.config(text = self.filename)
         duelgif.create_anims(self.filename, self.path)
-        tkMessageBox.showinfo('Gif complete', 'Gifs saved as ' + os.path.abspath('.'))
+        tkMessageBox.showinfo('Gif complete', 'Gifs saved under ' + self.path)
 
         
 

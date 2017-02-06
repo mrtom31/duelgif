@@ -64,8 +64,7 @@ def create_anim_gif(source, anim, path):
         
         pil_frames.append(cropped_img)
     
-
-    writeGif('{0}_{1}.gif'.format(source, anim), pil_frames, subRectangles=False)
+    writeGif(os.path.join(path,'{0}_{1}.gif'.format(source, anim)), pil_frames, subRectangles=False)
 
 def create_anims(source, path):
     """
