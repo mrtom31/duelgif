@@ -1,3 +1,4 @@
+# -*- coding: iso8859-1 -*- 
 import Tkinter, Tkconstants, tkFileDialog, tkMessageBox
 import os
 import duelgif
@@ -48,6 +49,7 @@ class TkFileDialogExample(Tkinter.Frame):
 
         return tkFileDialog.askopenfile(mode='r', **self.file_opt)
 
+        
     def askopenfilename(self):
 
         """Returns an opened file in read mode.
@@ -70,9 +72,15 @@ class TkFileDialogExample(Tkinter.Frame):
         duelgif.create_anims(self.filename, self.path)
         tkMessageBox.showinfo('Gif complete', 'Gifs saved as ' + os.path.abspath('.'))
 
+        
+
+def on_closing():
+    global root
+    root.destroy()
 
 
 if __name__=='__main__':
     root = Tkinter.Tk()
     TkFileDialogExample(root).pack()
+    root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()

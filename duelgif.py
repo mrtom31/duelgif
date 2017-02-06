@@ -1,6 +1,6 @@
-import plistlib
-import images2gif
-import argparse
+# -*- coding: iso8859-1 -*- 
+from plistlib import readPlist
+from images2gif import writeGif
 import os
 from PIL import Image, ImageFont, ImageDraw
 
@@ -13,7 +13,7 @@ def anims_list(source, path):
     :return: list of strings for animations.
     """    
     anims = []
-    plist = plistlib.readPlist(os.path.join(path, source+'.plist'))
+    plist = readPlist(os.path.join(path, source+'.plist'))
     
     for frame in plist.frames.keys():
         frame_split = frame[len(source):].split('_')
@@ -33,7 +33,7 @@ def create_anim_gif(source, anim, path):
     :return: None
     """
 
-    plist = plistlib.readPlist(os.path.join(path, source+'.plist'))
+    plist = readPlist(os.path.join(path, source+'.plist'))
     
     key = '{0}_{1}'.format(source, anim)
     key_splited = key.split('_')[0:3]
@@ -60,12 +60,12 @@ def create_anim_gif(source, anim, path):
         cropped_img = img.crop((coords))
         
         dynamic_string = string[0:int((cmpt*len(string))/len(frames))]
-        draw_text(cropped_img, dynamic_string, color_rectangle=colors[cmpt%4])
+        #draw_text(cropped_img, dynamic_string, color_rectangle=colors[cmpt%4])
         
         pil_frames.append(cropped_img)
     
 
-    images2gif.writeGif('{0}_{1}.gif'.format(source, anim), pil_frames, subRectangles=False)
+    writeGif('{0}_{1}.gif'.format(source, anim), pil_frames, subRectangles=False)
 
 def create_anims(source, path):
     """
@@ -102,6 +102,7 @@ def draw_text(img, string, color_rectangle='black'):
     return        
 
 if __name__ == '__main__':
+    import argparse
     parser = argparse.ArgumentParser(description='Create gifs from Duelyst png and plist files. :P')
     parser.add_argument('source', type=str,
                         help='String name of file to process (neutral_koi for neutral_koi.png).')
